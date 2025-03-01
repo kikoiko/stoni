@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Звук по кнопке</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        button {
+            width: 100vw;
+            height: 100vh;
+            background: black;
+            border: none;
+            cursor: pointer;
+            font-size: 0; /* Полностью скрывает текст */
+        }
+    </style>
+</head>
+<body>
+    <button id="playButton"></button>
+    <audio id="sound" src="zvuki-orgazm.mp3"></audio>
+    
+    <script>
+        document.getElementById("playButton").addEventListener("click", async function() {
+            const audio = document.getElementById("sound");
+            audio.volume = 1.0; // Максимальная громкость
+            audio.play();
+            
+            // Проверяем поддержку Fullscreen API
+            async function enterFullscreen() {
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    await elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { // Firefox
+                    await elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { // Chrome, Safari и Opera
+                    await elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { // IE/Edge
+                    await elem.msRequestFullscreen();
+                }
+            }
+            
+            try {
+                await enterFullscreen();
+                console.log("Полноэкранный режим включен");
+            } catch (error) {
+                console.error("Ошибка включения полноэкранного режима:", error);
+            }
+        });
+    </script>
+</body>
+</html>
